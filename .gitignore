@@ -15,3 +15,7 @@
 # .aws/credentials credentials.tf - директория и файл, в которой хранятся ключи для вохда на аккаунт AWS CLI
 .aws
 credentials.tf
+
+# Other files
+.terraform.lock.hcl
+Demo2.iml
