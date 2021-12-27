@@ -12,5 +12,6 @@
 # .idea - директория, которая используется для IDE IntelliJ
 .idea
 
-# .aws/credentials - директория, в которой хранятся ключи для вохда на аккаунт AWS
+# .aws/credentials credentials.tf - директория и файл, в которой хранятся ключи для вохда на аккаунт AWS CLI
 .aws
+credentials.tf
