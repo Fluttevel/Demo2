@@ -1,36 +1,27 @@
 provider "aws" {
-  access_key  = var.access_key
-  secret_key  = var.secret_key
-  region      = "eu-central-1"
+  region      = "us-east-2"
 }
 
-resource "aws_instance" "instance" {
-  ami           = "ami-042ad9eec03638628"
+# Creating resources EC2 Instance
+resource "aws_launch_configuration" "example" {
+  image_id      = "ami-03a0c45ebc70f98ea"
   instance_type = "t2.micro"
 
   # Implicit dependency
-#  vpc_security_group_ids = [aws_security_group.instance.id]
+  security_groups = [aws_security_group.instance.id]
 
   # Simple bash script for web site HelloWorld.html
-#  user_data = <<-EOF
-#              #!/bin/bash
-#              echo "Hello, World" > index.html
-#              nohup busybox httpd -f -p 8080 &
-#              EOF
+  user_data = <<EOF
+#!/bin/bash
+sudo apt-get update
+sudo apt-get install apache2
+# myip=`curl http://169.254.169.254/latest/meta-data/local-ipv4`
+echo "WEB Server" > var/www/html/index.html
+# sudo service apache2 start
+EOF
 
-  tags = {
-    Name = "terraform-instance"
+  # Требуется при использовании группы автомасштабирования в конфигурации запуска
+  lifecycle {
+    create_before_destroy = true
   }
 }
-
-# Open input/output traffic Port[8080] (AWS default closed traffic for server EC2)
-#resource "aws_security_group" "instance" {
-#  name = "terraform-example-instance"
-#
-#  ingress {
-#    from_port   = 8080
-#    to_port     = 8080
-#    protocol    = "tcp"
-#    cidr_blocks = ["0.0.0.0/0"]
-#  }
-#}
