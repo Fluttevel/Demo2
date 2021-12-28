@@ -13,7 +13,7 @@ resource "aws_security_group" "instance" {
 resource "aws_security_group" "alb" {
   name = "terraform-example-alb"
 
-  # Разрешаем все входящие HTTP-запросы
+  # Разрешить все входящие HTTP-запросы
   ingress {
     from_port = 80
     to_port   = 80
@@ -21,7 +21,7 @@ resource "aws_security_group" "alb" {
     cidr_blocks = [var.cidr_0]
   }
 
-  # Разрешаем все исходящие HTTP-запросы
+  # Разрешить все исходящие HTTP-запросы
   egress {
     from_port = 0
     to_port   = 0
